@@ -1,0 +1,8 @@
+[package]
+name = "a11ynull-prevalence"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+atspi = { git = "https://github.com/odilia-app/atspi.git", features = ["tokio"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
