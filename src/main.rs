@@ -91,8 +91,8 @@ async fn parse_connected(
     let mut work = vec![root];
 
     while let Some(object_ref) = work.pop() {
+        total_refs += 1;
         if !object_ref.is_null() {
-            total_refs += 1;
             let accessible_proxy = conn.object_as_accessible(&object_ref).await?;
             let children = accessible_proxy.get_children().await?;
             work.extend(children);
