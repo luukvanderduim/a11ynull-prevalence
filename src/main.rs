@@ -10,7 +10,7 @@ struct AccessibleApp {
     tk: String,
     total_refs: usize,
     null_refs: usize,
-    active_state: usize,
+    active_frame: usize,
 }
 
 #[derive(Clone, Debug, Default)]
@@ -43,7 +43,7 @@ impl Display for AccessibleApps {
             "Toolkit",
             "Total",
             "Null refs",
-            "Active states",
+            "Active frames",
             name_width = name_width,
             tk_width = tk_width
         )?;
@@ -67,7 +67,7 @@ impl Display for AccessibleApps {
                 app.tk,
                 app.total_refs,
                 app.null_refs,
-                app.active_state,
+                app.active_frame,
                 name_width = name_width,
                 tk_width = tk_width
             )?;
@@ -91,7 +91,7 @@ async fn parse_connected(
 
     let mut total_refs: usize = 0;
     let mut null_refs: usize = 0;
-    let mut active_state: usize = 0;
+    let mut active_frame: usize = 0;
 
     let mut work = vec![root];
 
@@ -105,8 +105,9 @@ async fn parse_connected(
                 .get_state()
                 .await?
                 .contains(atspi::State::Active)
+                && accessible_proxy.get_role().await? == atspi::Role::Frame
             {
-                active_state += 1;
+                active_frame += 1;
             }
         } else {
             null_refs += 1;
@@ -118,7 +119,7 @@ async fn parse_connected(
         tk,
         total_refs,
         null_refs,
-        active_state,
+        active_frame,
     })
 }
 
