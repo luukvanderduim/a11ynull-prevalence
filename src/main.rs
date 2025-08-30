@@ -10,6 +10,7 @@ struct AccessibleApp {
     tk: String,
     total_refs: usize,
     null_refs: usize,
+    active_state: usize,
 }
 
 #[derive(Clone, Debug, Default)]
@@ -37,17 +38,19 @@ impl Display for AccessibleApps {
 
         writeln!(
             f,
-            "{:<name_width$} {:<tk_width$} {:<12} {:<10}",
+            "{:<name_width$} {:<tk_width$} {:<10} {:<10} {:<10}",
             "Application",
             "Toolkit",
             "Total",
             "Null refs",
+            "Active states",
             name_width = name_width,
             tk_width = tk_width
         )?;
         writeln!(
             f,
-            "{:-<name_width$} {:-<tk_width$} {:-<12} {:-<12}",
+            "{:-<name_width$} {:-<tk_width$} {:-<10} {:-<10} {:-<10}",
+            "",
             "",
             "",
             "",
@@ -59,11 +62,12 @@ impl Display for AccessibleApps {
         for app in &self.0 {
             writeln!(
                 f,
-                "{:<name_width$} {:<tk_width$} {:<12} {:<12}",
+                "{:<name_width$} {:<tk_width$} {:<10} {:<10} {:<10}",
                 app.name,
                 app.tk,
                 app.total_refs,
                 app.null_refs,
+                app.active_state,
                 name_width = name_width,
                 tk_width = tk_width
             )?;
@@ -87,6 +91,7 @@ async fn parse_connected(
 
     let mut total_refs: usize = 0;
     let mut null_refs: usize = 0;
+    let mut active_state: usize = 0;
 
     let mut work = vec![root];
 
@@ -96,6 +101,13 @@ async fn parse_connected(
             let accessible_proxy = conn.object_as_accessible(&object_ref).await?;
             let children = accessible_proxy.get_children().await?;
             work.extend(children);
+            if accessible_proxy
+                .get_state()
+                .await?
+                .contains(atspi::State::Active)
+            {
+                active_state += 1;
+            }
         } else {
             null_refs += 1;
         }
@@ -106,6 +118,7 @@ async fn parse_connected(
         tk,
         total_refs,
         null_refs,
+        active_state,
     })
 }
 
