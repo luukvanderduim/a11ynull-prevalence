@@ -20,33 +20,33 @@ cargo run --release
 ## Example output
 
 ```bash
-Application                         Toolkit  Total        Null refs
------------------------------------ -------- ------------ ------------
-xfce4-session                       gtk      1            0
-ibus-ui-gtk3                        gtk      1            0
-xdg-desktop-portal-gtk              gtk      1            0
-ibus-extension-gtk3                 gtk      1            0
-xfwm4                               gtk      2            0
-xfsettingsd                         gtk      1            0
-xfce4-panel                         gtk      73           0
-Thunar                              gtk      1            0
-xfdesktop                           gtk      4            0
-xfce4-notifyd                       gtk      1            0
-wrapper-2.0                         gtk      1            0
-wrapper-2.0                         gtk      1            0
-wrapper-2.0                         gtk      1            0
-xfce4-power-manager                 gtk      1            0
-polkit-gnome-authentication-agent-1 gtk      1            0
-update-notifier                     gtk      1            0
-nm-applet                           gtk      1            0
-xfce4-clipman                       gtk      1            0
-blueman-applet                      gtk      1            0
-blueman-tray                        gtk      1            0
-Thunderbird                         Gecko    2705         0
-Firefox                             Gecko    12422        0
-xfrun4                              gtk      510          0
-element-desktop                     Chromium 2            1
-signal-desktop                      Chromium 2            1
+Finished `release` profile [optimized] target(s) in 0.07s
+ Running `target/release/a11ynull-prevalence`
+Application                        Toolkit  Total      Null refs  Active states
+---------------------------------- -------- ---------- ---------- ----------
+ibus-ui-gtk3                       gtk      1          0          0
+xfce4-session                      gtk      1          0          0
+xdg-desktop-portal-gtk             gtk      1          0          0
+ibus-extension-gtk3                gtk      1          0          0
+xfwm4                              gtk      2          0          1
+xfsettingsd                        gtk      1          0          0
+xfce4-panel                        gtk      67         0          0
+Thunar                             gtk      1          0          0
+xfdesktop                          gtk      4          0          0
+xfce4-notifyd                      gtk      1          0          0
+wrapper-2.0                        gtk      1          0          0
+wrapper-2.0                        gtk      1          0          0
+wrapper-2.0                        gtk      1          0          0
+xfce4-power-manager                gtk      1          0          0
+polkit-mate-authentication-agent-1 gtk      1          0          0
+update-notifier                    gtk      1          0          0
+xfce4-clipman                      gtk      1          0          0
+nm-applet                          gtk      1          0          0
+blueman-applet                     gtk      1          0          0
+blueman-tray                       gtk      1          0          0
+Thunderbird                        Gecko    2769       0          2
+Firefox                            Gecko    7640       0          1
+signal-desktop                     Chromium 3          1          0
 ```
 
 ## License
